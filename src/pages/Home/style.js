@@ -8,6 +8,6 @@ export const carousel = css`
   display: flex;
   padding: 5rem 4rem;
   gap: 2rem;
-  height: 100%;
+  height: calc(100vh - 100px);
   align-items: center;
 `

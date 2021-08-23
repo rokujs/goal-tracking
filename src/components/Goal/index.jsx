@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 /** @jsx jsx */
 import React from 'react'
 import { jsx } from '@emotion/react'

@@ -3,7 +3,7 @@ const GOALS = [
     _id: 13,
     name: 'goal 1',
     description: 'house task',
-    timeEnd: 'Sun Aug 25 2021 17:35:42 GMT-0500 (Colombia Standard Time)',
+    timeEnd: '2021-08-25T00:00:00Z',
     tries: 3,
     todayDone: true,
     end: false,

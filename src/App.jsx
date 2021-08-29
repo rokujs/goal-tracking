@@ -5,7 +5,8 @@ import Home from '@/pages/Home'
 import Login from '@/pages/Login'
 import NotFound from '@/pages/NotFound'
 import Register from '@/pages/Register'
-import CreateGoal from './pages/CreateGoal'
+import CreateGoal from '@/pages/CreateGoal'
+import History from '@/pages/History'
 
 function App () {
   return (
@@ -15,6 +16,7 @@ function App () {
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
         <Route path='/new-goal' component={CreateGoal} />
+        <Route path='/goal/:id' component={History} />
         <Route component={NotFound} />
       </Switch>
     </>

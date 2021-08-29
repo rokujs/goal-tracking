@@ -6,10 +6,10 @@ import { container, logo, list, item } from './styles'
 
 function Header () {
   return (
-    <div css={container}>
+    <header css={container}>
       <Link href='/'>
         <a>
-          <img css={logo} src='public/logo.svg' />
+          <img css={logo} src="/logo.svg" />
         </a>
       </Link>
       <nav css={list}>
@@ -21,7 +21,7 @@ function Header () {
           </li>
         </ul>
       </nav>
-    </div>
+    </header>
   )
 }
 

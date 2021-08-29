@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Goal from '../Goal'
 import getGoals from '@/services/getGoals'
 import remaining from '@/utils/Date'
+import Loading from '../Loading'
 
 function ListOfGoals () {
   const [loading, setLoading] = useState(true)
@@ -24,7 +25,7 @@ function ListOfGoals () {
   }, [])
 
   if (loading) {
-    return <p>Loading...</p>
+    return <Loading />
   }
 
   if (error) {

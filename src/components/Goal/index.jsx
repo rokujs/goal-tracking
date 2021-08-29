@@ -12,10 +12,7 @@ import {
 } from './style'
 import Button from '../Button'
 
-const t = new Date(2020, 3, 6)
-
 function Goal ({ title, description, timeEnd, tries, todayDone, days, url }) {
-  console.log(t)
   return (
     <div css={container}>
       <h3 css={styleTitle}>{title}</h3>

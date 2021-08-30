@@ -10,6 +10,26 @@ function ListOfGoals () {
   const [error, setError] = useState(false)
   const [goals, setGoals] = useState([])
 
+  const Done = goalId => {
+    console.log('Done')
+    // fetch
+    setGoals(goals => {
+      const goalDone = goals.findIndex(goal => goal._id === goalId)
+      goals[goalDone].todayDone = true
+
+      return [...goals]
+    })
+  }
+
+  const Drop = goalId => {
+    setGoals(goals => {
+      const index = goals.findIndex(goal => goal._id === goalId)
+      if (index > -1) goals.splice(index, 1)
+
+      return [...goals]
+    })
+  }
+
   useEffect(() => {
     getGoals()
       .then(data => {
@@ -49,15 +69,20 @@ function ListOfGoals () {
             const time = remaining(timeEnd)
             const url = `/goal/${_id}`
 
-            return <Goal
-              key={_id}
-              title={name}
-              description={description}
-              timeEnd={time}
-              tries={tries}
-              todayDone={todayDone}
-              url={url}
-            />
+            return (
+              <Goal
+                key={_id}
+                id={_id}
+                title={name}
+                description={description}
+                timeEnd={time}
+                tries={tries}
+                todayDone={todayDone}
+                url={url}
+                onClick={Done}
+                onDrop={Drop}
+              />
+            )
           }
         )}
     </>

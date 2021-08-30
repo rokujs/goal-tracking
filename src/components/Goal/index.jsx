@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react'
 import { jsx } from '@emotion/react'
 
 import {
@@ -12,7 +11,18 @@ import {
 } from './style'
 import Button from '../Button'
 
-function Goal ({ title, description, timeEnd, tries, todayDone, days, url }) {
+function Goal ({
+  id,
+  title,
+  description,
+  timeEnd,
+  tries,
+  todayDone,
+  days,
+  url,
+  onClick,
+  onDrop
+}) {
   return (
     <div css={container}>
       <h3 css={styleTitle}>{title}</h3>
@@ -41,7 +51,12 @@ function Goal ({ title, description, timeEnd, tries, todayDone, days, url }) {
       </div>
 
       <div css={btn}>
-        <Button>{todayDone ? <span>Done</span> : <span>Pending</span>}</Button>
+        <Button remove onClick={() => onDrop(id)}>
+          <span>Drop</span>
+        </Button>
+        <Button onClick={() => onClick(id)}>
+          {todayDone ? <span>Done</span> : <span>Pending</span>}
+        </Button>
       </div>
     </div>
   )

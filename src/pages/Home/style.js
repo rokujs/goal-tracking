@@ -7,6 +7,7 @@ export const container = css`
 export const carousel = css`
   display: flex;
   padding: 5rem 4rem;
+  overflow-x: auto;
   gap: 2rem;
   height: calc(100vh - 100px);
   align-items: center;

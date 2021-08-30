@@ -13,6 +13,11 @@ const common = `
 `
 
 export const Button = styled.button(common)
+export const Delete = styled.button(`
+  ${common}
+  color: ${colors.white};
+  background-color: ${colors.delete};
+`)
 export const Link = styled(Wouter)`
 ${common}
 padding: .8rem;

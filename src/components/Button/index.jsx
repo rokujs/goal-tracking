@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { Button, Link } from './style'
+import { Button, Link, Delete } from './style'
 
-function ButtonComponent ({ children, href }) {
+function ButtonComponent ({ children, href, remove, onClick }) {
+  if (remove) return <Delete onClick={onClick}>{children}</Delete>
+
   return href
     ? (
     <Link href={href}>
@@ -10,7 +12,7 @@ function ButtonComponent ({ children, href }) {
     </Link>
       )
     : (
-    <Button>{children}</Button>
+    <Button onClick={onClick}>{children}</Button>
       )
 }
 

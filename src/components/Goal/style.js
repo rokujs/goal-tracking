@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import { colors } from '@/styles/theme'
 
 export const container = css`
-  width: 20rem;
+  min-width: 20rem;
   padding: 1rem;
   background-color: ${colors.white};
   border-radius: 1rem;
@@ -58,7 +58,6 @@ export const end = css`
 
 export const btn = css`
   margin-top: 2rem;
-  button {
-    width: 100%;
-  }
+  display: flex;
+  justify-content: space-around;
 `

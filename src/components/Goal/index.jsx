@@ -20,6 +20,8 @@ function Goal ({
   todayDone,
   days,
   url,
+  dayWithoutFail,
+  start,
   onClick,
   onDrop
 }) {
@@ -31,18 +33,20 @@ function Goal ({
         <p>{description}</p>
       </div>
 
-      <div css={info}>
-        <div>
-          <span>Tries</span>
-          <b>{tries}</b>
-          <Button href={url}>History</Button>
-        </div>
+      {tries.length > 0 && (
+        <div css={info}>
+          <div>
+            <span>Tries</span>
+            <b>{tries.length}</b>
+            <Button href={url}>History</Button>
+          </div>
 
-        <div>
-          <span>Consecutive days</span>
-          <b>{days}</b>
+          <div>
+            <span>Consecutive days</span>
+            <b>{days}</b>
+          </div>
         </div>
-      </div>
+      )}
 
       <div css={end}>
         <span>The goal will end in</span>
@@ -51,7 +55,7 @@ function Goal ({
       </div>
 
       <div css={btn}>
-        <Button remove onClick={() => onDrop(id)}>
+        <Button remove onClick={() => onDrop({ goalId: id, start })}>
           <span>Drop</span>
         </Button>
         <Button onClick={() => onClick(id)}>

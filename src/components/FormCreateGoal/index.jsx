@@ -18,6 +18,8 @@ function FormCreateGoal () {
 
   const onSubmit = data => {
     setIsLoading(true)
+    data.user = 'roku_js'
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

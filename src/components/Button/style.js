@@ -10,6 +10,10 @@ const common = `
   cursor: pointer;
   color: ${colors.black};
   font-weight: 700;
+
+  &[disabled] {
+    opacity: 0.5;
+  }
 `
 
 export const Button = styled.button(common)

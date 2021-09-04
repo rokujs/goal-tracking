@@ -6,7 +6,7 @@ import {
   title as styleTitle,
   description as styleDescription,
   info,
-  end,
+  end as styleEnd,
   btn
 } from './style'
 import Button from '../Button'
@@ -20,8 +20,8 @@ function Goal ({
   todayDone,
   days,
   url,
-  dayWithoutFail,
   start,
+  end,
   onClick,
   onDrop
 }) {
@@ -40,27 +40,36 @@ function Goal ({
             <b>{tries.length}</b>
             <Button href={url}>History</Button>
           </div>
+        </div>
+      )}
 
+      {!end && (
+        <div css={info}>
           <div>
             <span>Consecutive days</span>
-            <b>{days}</b>
+            <b>{todayDone ? days : days - 1}</b>
           </div>
         </div>
       )}
 
-      <div css={end}>
-        <span>The goal will end in</span>
-        <b>{timeEnd}</b>
-        <span>{timeEnd === 1 ? 'day' : 'days'}</span>
-      </div>
+      {!end && (
+        <div css={styleEnd}>
+          <span>The goal will end in</span>
+          <b>{timeEnd}</b>
+          <span>{timeEnd === 1 ? 'day' : 'days'}</span>
+        </div>
+      )}
 
       <div css={btn}>
-        <Button remove onClick={() => onDrop({ goalId: id, start })}>
-          <span>Drop</span>
-        </Button>
-        <Button onClick={() => onClick(id)}>
-          {todayDone ? <span>Done</span> : <span>Pending</span>}
-        </Button>
+        {end
+          ? <Button><span>Resume</span></Button>
+          : <Button remove onClick={() => onDrop({ goalId: id, start })}><span>Drop</span></Button>
+        }
+
+        {todayDone
+          ? <Button disabled><span>Done</span></Button>
+          : <Button onClick={() => onClick(id)} ><span>Pending</span></Button>
+        }
       </div>
     </div>
   )

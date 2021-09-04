@@ -13,7 +13,7 @@ export function TimeDiff (startDate, endDate) {
   const end = new Date(endDate).getTime()
 
   const diff = end - now
-  const timeRemaining = Math.round(diff / (1000 * 60 * 60 * 24))
+  const timeRemaining = Math.ceil(diff / (1000 * 60 * 60 * 24))
 
   return timeRemaining
 }

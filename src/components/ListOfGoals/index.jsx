@@ -20,7 +20,6 @@ function ListOfGoals () {
   }
 
   const Done = goalId => {
-    console.log('Done')
     // fetch
     const requestOptions = {
       method: 'PATCH',
@@ -29,8 +28,8 @@ function ListOfGoals () {
     }
 
     fetch(`http://localhost:8080/goal/${goalId}`, requestOptions)
+      .then(response => response.json())
       .then(data => {
-        console.log('data: ', data)
         setGoals(goals => {
           const goalDone = goals.findIndex(goal => goal._id === goalId)
           goals[goalDone].todayDone = true
@@ -94,7 +93,7 @@ function ListOfGoals () {
     <>
       {goals &&
         goals.map(
-          ({ _id, name, description, timeEnd, tries, todayDone, start }) => {
+          ({ _id, name, description, timeEnd, tries, todayDone, start, end }) => {
             const now = new Date()
             const time = remaining(timeEnd)
             const dayWithoutFail = TimeDiff(start, now)
@@ -109,8 +108,9 @@ function ListOfGoals () {
                 timeEnd={time}
                 tries={tries}
                 todayDone={todayDone}
-                dayWithoutFail={dayWithoutFail}
+                days={dayWithoutFail}
                 start={start}
+                end={end}
                 url={url}
                 onClick={Done}
                 onDrop={Drop}

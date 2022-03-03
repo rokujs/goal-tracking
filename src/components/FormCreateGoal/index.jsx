@@ -20,6 +20,10 @@ function FormCreateGoal () {
     setIsLoading(true)
     data.user = 'roku_js'
 
+    if (data.description === '') {
+      data.description = 'No description'
+    }
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -43,6 +47,7 @@ function FormCreateGoal () {
           type='text'
           placeholder='Title'
           {...register('name')}
+          required
         />
       </div>
       <div>
@@ -55,7 +60,7 @@ function FormCreateGoal () {
       </div>
       <div css={date}>
         <label>Time end</label>
-        <input type='date' {...register('timeEnd')} />
+        <input type='date' {...register('timeEnd')} required />
       </div>
       <Button>Save</Button>
     </form>

@@ -9,14 +9,41 @@ function ListOfGoals () {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [goals, setGoals] = useState([])
+  const [modal, setModal] = useState(false)
 
-  const Delete = goalId => {
+  const RemoveGoal = goalId => {
     setGoals(goals => {
       const index = goals.findIndex(goal => goal._id === goalId)
       if (index > -1) goals.splice(index, 1)
 
       return [...goals]
     })
+  }
+
+  const ResumeGoal = ({ goalId, dateEnd }) => {
+    // fetch
+    const dataDate = {
+      newStart: Date.now(),
+      newEnd: dateEnd
+    }
+
+    const requestOptions = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dataDate)
+    }
+
+    fetch(`http://localhost:8080/goal/resume/${goalId}`, requestOptions)
+      .then(response => response.json())
+      .then(() => {
+        setGoals(goals => {
+          const goalDone = goals.findIndex(goal => goal._id === goalId)
+          goals[goalDone].todayDone = true
+
+          return [...goals]
+        })
+      })
+      .catch(err => console.error(err))
   }
 
   const Done = goalId => {
@@ -93,7 +120,16 @@ function ListOfGoals () {
     <>
       {goals &&
         goals.map(
-          ({ _id, name, description, timeEnd, tries, todayDone, start, end }) => {
+          ({
+            _id,
+            name,
+            description,
+            timeEnd,
+            tries,
+            todayDone,
+            start,
+            end
+          }) => {
             const now = new Date()
             const time = remaining(timeEnd)
             const dayWithoutFail = TimeDiff(start, now)
@@ -114,6 +150,10 @@ function ListOfGoals () {
                 url={url}
                 onClick={Done}
                 onDrop={Drop}
+                resume={ResumeGoal}
+                modal={modal}
+                onCloseModal={() => setModal(false)}
+                onOpenModal={() => setModal(true)}
               />
             )
           }

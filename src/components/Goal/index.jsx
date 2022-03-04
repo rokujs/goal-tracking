@@ -1,5 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react'
+import Modal from '@/components/Modal'
+import ModalResume from '@/components/ModalResume'
 
 import {
   container,
@@ -8,7 +10,7 @@ import {
   info,
   end as styleEnd,
   btn
-} from './style'
+} from './styles'
 import Button from '../Button'
 
 function Goal ({
@@ -23,7 +25,11 @@ function Goal ({
   start,
   end,
   onClick,
-  onDrop
+  onDrop,
+  resume,
+  modal,
+  onCloseModal,
+  onOpenModal
 }) {
   return (
     <div css={container}>
@@ -61,15 +67,34 @@ function Goal ({
       )}
 
       <div css={btn}>
+        {modal && (
+          <Modal onClose={onCloseModal}>
+            <ModalResume onClick={resume} id={id} title={title} onClose={onCloseModal} />
+          </Modal>
+        )}
         {end
-          ? <Button><span>Resume</span></Button>
-          : <Button remove onClick={() => onDrop({ goalId: id, start })}><span>Drop</span></Button>
-        }
+          ? (
+          <Button onClick={onOpenModal}>
+            <span>Resume</span>
+          </Button>
+            )
+          : (
+          <Button remove onClick={() => onDrop({ goalId: id, start })}>
+            <span>Drop</span>
+          </Button>
+            )}
 
         {todayDone
-          ? <Button disabled><span>Done</span></Button>
-          : <Button onClick={() => onClick(id)} ><span>Pending</span></Button>
-        }
+          ? (
+          <Button disabled>
+            <span>Done</span>
+          </Button>
+            )
+          : (
+          <Button onClick={() => onClick(id)}>
+            <span>Pending</span>
+          </Button>
+            )}
       </div>
     </div>
   )

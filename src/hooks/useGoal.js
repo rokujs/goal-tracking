@@ -21,16 +21,25 @@ export const useGoal = () => {
   }, [])
 
   const RemoveGoal = goalId => {
-    setGoals(goals => {
-      const index = goals.findIndex(goal => goal._id === goalId)
-      if (index > -1) goals.splice(index, 1)
+    const requestOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    }
 
-      return [...goals]
-    })
+    fetch(`http://localhost:8080/goal/${goalId}`, requestOptions)
+      .then(response => response.json())
+      .then(() => {
+        setGoals(goals => {
+          const index = goals.findIndex(goal => goal._id === goalId)
+          if (index > -1) goals.splice(index, 1)
+
+          return [...goals]
+        })
+      })
+      .catch(err => console.error(err))
   }
 
   const ResumeGoal = ({ goalId, dateEnd }) => {
-    // fetch
     const dataDate = {
       newStart: Date.now(),
       newEnd: dateEnd
@@ -57,7 +66,6 @@ export const useGoal = () => {
   }
 
   const Done = goalId => {
-    // fetch
     const requestOptions = {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -66,7 +74,7 @@ export const useGoal = () => {
 
     fetch(`http://localhost:8080/goal/${goalId}`, requestOptions)
       .then(response => response.json())
-      .then(data => {
+      .then(() => {
         setGoals(goals => {
           const goalDone = goals.findIndex(goal => goal._id === goalId)
           goals[goalDone].todayDone = true
@@ -104,6 +112,7 @@ export const useGoal = () => {
       })
       .catch(err => console.error(err))
   }
+
   return {
     RemoveGoal,
     ResumeGoal,

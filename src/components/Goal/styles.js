@@ -2,8 +2,10 @@ import { css } from '@emotion/react'
 import { colors } from '@/styles/theme'
 
 export const container = css`
-  min-width: 20rem;
-  padding: 1rem;
+  min-width: 25rem;
+  max-width: 30rem;
+  min-height: 30rem;
+  padding: 3rem;
   background-color: ${colors.white};
   border-radius: 1rem;
 

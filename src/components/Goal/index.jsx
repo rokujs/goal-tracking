@@ -3,6 +3,7 @@ import { jsx } from '@emotion/react'
 
 import Modal from '@/components/Modal'
 import ModalResume from '@/components/ModalResume'
+import Button from '@/components/Button'
 
 import { useModal } from '@/hooks/useModal'
 
@@ -14,7 +15,6 @@ import {
   end as styleEnd,
   btn
 } from './styles'
-import Button from '../Button'
 
 function Goal ({
   id,
@@ -29,6 +29,7 @@ function Goal ({
   end,
   onClick,
   onDrop,
+  onRemove,
   resume
 }) {
   const { isShowing: modal, onOpenModal, onCloseModal } = useModal()
@@ -70,13 +71,18 @@ function Goal ({
       <div css={btn}>
         {modal && (
           <Modal onClose={onCloseModal}>
-            <ModalResume onClick={resume} id={id} title={title} onClose={onCloseModal} />
+            <ModalResume
+              onClick={resume}
+              id={id}
+              title={title}
+              onClose={onCloseModal}
+            />
           </Modal>
         )}
         {end
           ? (
-          <Button onClick={onOpenModal}>
-            <span>Resume</span>
+          <Button remove onClick={() => onRemove(id)}>
+            <span>Remove</span>
           </Button>
             )
           : (
@@ -85,17 +91,23 @@ function Goal ({
           </Button>
             )}
 
-        {todayDone
+        {end
           ? (
+          <Button onClick={onOpenModal}>
+            <span>Resume</span>
+          </Button>
+            )
+          : todayDone
+            ? (
           <Button disabled>
             <span>Done</span>
           </Button>
-            )
-          : (
+              )
+            : (
           <Button onClick={() => onClick(id)}>
             <span>Pending</span>
           </Button>
-            )}
+              )}
       </div>
     </div>
   )

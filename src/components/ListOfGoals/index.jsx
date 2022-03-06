@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import { useGoal } from '@/hooks/useGoal'
 
@@ -7,7 +7,7 @@ import Loading from '../Loading'
 import remaining, { TimeDiff } from '@/utils/Date'
 
 function ListOfGoals () {
-  const { ResumeGoal, Done, Drop, goals, loading, error } = useGoal()
+  const { goals, loading, error, ResumeGoal, Done, Drop, RemoveGoal } = useGoal()
 
   const NOW = new Date()
 
@@ -53,6 +53,7 @@ function ListOfGoals () {
                 onClick={Done}
                 onDrop={Drop}
                 resume={ResumeGoal}
+                onRemove={RemoveGoal}
               />
             )
           }

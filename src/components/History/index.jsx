@@ -24,7 +24,7 @@ function TableHistory ({ id }) {
 
   return (
     <GoalsHistory
-      title={goalList.title}
+      title={goalList.name}
       description={goalList.description}
       list={goalList.tries}
     />

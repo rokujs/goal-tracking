@@ -44,8 +44,10 @@ function Goal ({
       {tries.length > 0 && (
         <div css={info}>
           <div>
-            <span>Tries</span>
-            <b>{tries.length}</b>
+            <p>
+              <span>Tries:</span>
+              <b>{tries.length}</b>
+            </p>
             <Button href={url}>History</Button>
           </div>
         </div>
@@ -54,8 +56,10 @@ function Goal ({
       {!end && (
         <div css={info}>
           <div>
-            <span>Consecutive days</span>
-            <b>{todayDone ? days : days - 1}</b>
+            <p>
+              <span>Consecutive days:</span>
+              <b>{todayDone ? days : days - 1}</b>
+            </p>
           </div>
         </div>
       )}

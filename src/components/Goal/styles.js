@@ -25,27 +25,33 @@ export const description = css`
   padding: 0.5rem;
   font-size: 1.8rem;
   border-bottom: 2px solid #aaa;
+  margin-bottom: 1.5rem;
 `
 
 export const info = css`
   padding: 0.5rem;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: ${colors.black};
-
-  margin-top: 1rem;
+  margin: 0.5rem 0;
 
   div {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin: 2rem auto;
+    margin: 1.5rem auto;
+
+    p {
+      span {
+        margin-right: 0.5rem;
+      }
+    }
   }
 `
 
 export const end = css`
   width: 100%;
-  padding: 1rem;
-  font-size: 2rem;
+  padding: 0.6rem 0;
+  font-size: 1.8rem;
   color: ${colors.black};
   text-align: center;
 
@@ -62,4 +68,6 @@ export const btn = css`
   margin-top: 2rem;
   display: flex;
   justify-content: space-around;
+  padding-top: 1rem;
+  border-top: 2px solid #aaa;
 `

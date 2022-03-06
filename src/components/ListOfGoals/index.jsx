@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react'
 
 import Goal from '../Goal'
+import Loading from '../Loading'
 import getGoals from '@/services/getGoals'
 import remaining, { TimeDiff } from '@/utils/Date'
-import Loading from '../Loading'
 
 function ListOfGoals () {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [goals, setGoals] = useState([])
-  const [modal, setModal] = useState(false)
+  const NOW = new Date()
 
-  const RemoveGoal = goalId => {
-    setGoals(goals => {
-      const index = goals.findIndex(goal => goal._id === goalId)
-      if (index > -1) goals.splice(index, 1)
+  // const RemoveGoal = goalId => {
+  //   setGoals(goals => {
+  //     const index = goals.findIndex(goal => goal._id === goalId)
+  //     if (index > -1) goals.splice(index, 1)
 
-      return [...goals]
-    })
-  }
+  //     return [...goals]
+  //   })
+  // }
 
   const ResumeGoal = ({ goalId, dateEnd }) => {
     // fetch
@@ -38,7 +38,8 @@ function ListOfGoals () {
       .then(() => {
         setGoals(goals => {
           const goalDone = goals.findIndex(goal => goal._id === goalId)
-          goals[goalDone].todayDone = true
+          goals[goalDone].end = false
+          goals[goalDone].todayDone = false
 
           return [...goals]
         })
@@ -87,6 +88,7 @@ function ListOfGoals () {
         setGoals(goals => {
           const goalDone = goals.findIndex(goal => goal._id === goalId)
           goals[goalDone].tries = data.tries
+          goals[goalDone].end = true
 
           return [...goals]
         })
@@ -130,9 +132,8 @@ function ListOfGoals () {
             start,
             end
           }) => {
-            const now = new Date()
             const time = remaining(timeEnd)
-            const dayWithoutFail = TimeDiff(start, now)
+            const dayWithoutFail = TimeDiff(start, NOW)
             const url = `/goal/${_id}`
 
             return (
@@ -151,9 +152,6 @@ function ListOfGoals () {
                 onClick={Done}
                 onDrop={Drop}
                 resume={ResumeGoal}
-                modal={modal}
-                onCloseModal={() => setModal(false)}
-                onOpenModal={() => setModal(true)}
               />
             )
           }

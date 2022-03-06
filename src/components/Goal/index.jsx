@@ -1,7 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react'
+
 import Modal from '@/components/Modal'
 import ModalResume from '@/components/ModalResume'
+
+import { useModal } from '@/hooks/useModal'
 
 import {
   container,
@@ -26,11 +29,9 @@ function Goal ({
   end,
   onClick,
   onDrop,
-  resume,
-  modal,
-  onCloseModal,
-  onOpenModal
+  resume
 }) {
+  const { isShowing: modal, onOpenModal, onCloseModal } = useModal()
   return (
     <div css={container}>
       <h3 css={styleTitle}>{title}</h3>

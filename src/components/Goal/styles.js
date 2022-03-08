@@ -8,8 +8,11 @@ export const container = css`
   padding: 3rem;
   background-color: ${colors.white};
   border-radius: 1rem;
-
   box-shadow: 0 0.5rem 1rem #aaa;
+
+  @media (max-width: 468px) {
+    min-height: auto;
+  }
 `
 
 export const title = css`

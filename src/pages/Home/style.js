@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 
 export const container = css`
-  height: 100vh;
+  min-height: 100vh;
 `
 
 export const carousel = css`
@@ -11,4 +11,8 @@ export const carousel = css`
   gap: 2rem;
   height: calc(100vh - 100px);
   align-items: center;
+
+  @media (max-width: 468px) {
+    flex-direction: column;
+  }
 `

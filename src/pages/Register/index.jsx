@@ -1,10 +1,14 @@
 import React from 'react'
 
+import Header from '@/components/Header'
+import LayoutRegister from '@/components/LayoutRegister'
+
 function Register () {
   return (
-    <div>
-      <h1>Hello register</h1>
-    </div>
+    <>
+      <Header />
+      <LayoutRegister />
+    </>
   )
 }
 

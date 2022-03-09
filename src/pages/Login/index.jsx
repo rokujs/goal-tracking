@@ -1,10 +1,14 @@
 import React from 'react'
 
+import Header from '@/components/Header'
+import LayoutLogin from '@/components/LayoutLogin'
+
 function Login () {
   return (
-    <div>
-      <p>Hello Login</p>
-    </div>
+    <>
+      <Header />
+      <LayoutLogin />
+    </>
   )
 }
 

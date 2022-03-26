@@ -24,7 +24,7 @@ function ListOfGoals () {
       {goals &&
         goals.map(
           ({
-            _id,
+            id,
             name,
             description,
             timeEnd,
@@ -35,12 +35,12 @@ function ListOfGoals () {
           }) => {
             const time = remaining(timeEnd)
             const dayWithoutFail = TimeDiff(start, NOW)
-            const url = `/goal/${_id}`
+            const url = `/goal/${id}`
 
             return (
               <Goal
-                key={_id}
-                id={_id}
+                key={id}
+                id={id}
                 title={name}
                 description={description}
                 timeEnd={time}

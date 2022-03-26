@@ -19,6 +19,16 @@ function Header () {
               <a>Create goal</a>
             </Link>
           </li>
+          <li css={item}>
+            <Link href='/login'>
+              <a>Login</a>
+            </Link>
+          </li>
+          <li css={item}>
+            <Link href='/register'>
+              <a>Register</a>
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>

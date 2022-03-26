@@ -18,7 +18,7 @@ function FormCreateGoal () {
 
   const onSubmit = data => {
     setIsLoading(true)
-    data.user = 'roku_js'
+    data.userId = 'roku_js'
 
     if (data.description === '') {
       data.description = 'No description'
@@ -30,7 +30,7 @@ function FormCreateGoal () {
       body: JSON.stringify(data)
     }
 
-    fetch('http://localhost:8080/goals/add', requestOptions)
+    fetch('http://localhost:8080/api/goals/add', requestOptions)
       .then(() => setLocation('/'))
       .catch(err => console.error(err))
   }

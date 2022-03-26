@@ -26,11 +26,11 @@ export const useGoal = () => {
       headers: { 'Content-Type': 'application/json' }
     }
 
-    fetch(`http://localhost:8080/goal/${goalId}`, requestOptions)
+    fetch(`http://localhost:8080/api/goal/${goalId}`, requestOptions)
       .then(response => response.json())
       .then(() => {
         setGoals(goals => {
-          const index = goals.findIndex(goal => goal._id === goalId)
+          const index = goals.findIndex(goal => goal.id === goalId)
           if (index > -1) goals.splice(index, 1)
 
           return [...goals]
@@ -51,11 +51,11 @@ export const useGoal = () => {
       body: JSON.stringify(dataDate)
     }
 
-    fetch(`http://localhost:8080/goal/resume/${goalId}`, requestOptions)
+    fetch(`http://localhost:8080/api/goal/resume/${goalId}`, requestOptions)
       .then(response => response.json())
       .then(() => {
         setGoals(goals => {
-          const goalDone = goals.findIndex(goal => goal._id === goalId)
+          const goalDone = goals.findIndex(goal => goal.id === goalId)
           goals[goalDone].end = false
           goals[goalDone].todayDone = false
 
@@ -72,11 +72,11 @@ export const useGoal = () => {
       body: JSON.stringify({ todayDone: true })
     }
 
-    fetch(`http://localhost:8080/goal/${goalId}`, requestOptions)
+    fetch(`http://localhost:8080/api/goal/${goalId}`, requestOptions)
       .then(response => response.json())
       .then(() => {
         setGoals(goals => {
-          const goalDone = goals.findIndex(goal => goal._id === goalId)
+          const goalDone = goals.findIndex(goal => goal.id === goalId)
           goals[goalDone].todayDone = true
 
           return [...goals]
@@ -99,11 +99,11 @@ export const useGoal = () => {
       body: JSON.stringify(dataGoalAbandon)
     }
 
-    fetch(`http://localhost:8080/goal/${goalId}`, requestOptions)
+    fetch(`http://localhost:8080/api/goal/${goalId}`, requestOptions)
       .then(response => response.json())
       .then(data => {
         setGoals(goals => {
-          const goalDone = goals.findIndex(goal => goal._id === goalId)
+          const goalDone = goals.findIndex(goal => goal.id === goalId)
           goals[goalDone].tries = data.tries
           goals[goalDone].end = true
 

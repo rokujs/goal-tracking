@@ -1,10 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+
 import getGoals from '@/services/getGoals'
+import userContext from '@/context/userContext'
+
+const URL = 'http://localhost:8080/api'
 
 export const useGoal = () => {
   const [goals, setGoals] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const { jwt } = useContext(userContext)
 
   useEffect(() => {
     getGoals()
@@ -23,10 +28,10 @@ export const useGoal = () => {
   const RemoveGoal = goalId => {
     const requestOptions = {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` }
     }
 
-    fetch(`http://localhost:8080/api/goal/${goalId}`, requestOptions)
+    fetch(`${URL}/goal/${goalId}`, requestOptions)
       .then(response => response.json())
       .then(() => {
         setGoals(goals => {
@@ -47,11 +52,11 @@ export const useGoal = () => {
 
     const requestOptions = {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` },
       body: JSON.stringify(dataDate)
     }
 
-    fetch(`http://localhost:8080/api/goal/resume/${goalId}`, requestOptions)
+    fetch(`${URL}/goal/resume/${goalId}`, requestOptions)
       .then(response => response.json())
       .then(() => {
         setGoals(goals => {
@@ -68,11 +73,11 @@ export const useGoal = () => {
   const Done = goalId => {
     const requestOptions = {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` },
       body: JSON.stringify({ todayDone: true })
     }
 
-    fetch(`http://localhost:8080/api/goal/${goalId}`, requestOptions)
+    fetch(`${URL}/goal/${goalId}`, requestOptions)
       .then(response => response.json())
       .then(() => {
         setGoals(goals => {
@@ -95,11 +100,11 @@ export const useGoal = () => {
     }
     const requestOptions = {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` },
       body: JSON.stringify(dataGoalAbandon)
     }
 
-    fetch(`http://localhost:8080/api/goal/${goalId}`, requestOptions)
+    fetch(`${URL}/goal/${goalId}`, requestOptions)
       .then(response => response.json())
       .then(data => {
         setGoals(goals => {

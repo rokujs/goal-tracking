@@ -1,8 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation } from 'wouter'
+
+import userContext from '@/context/userContext'
+import { CreateGoal } from '@/services/createGoal'
 
 import Button from '@/components/Button'
 import Loading from '../Loading'
@@ -13,24 +16,20 @@ function FormCreateGoal () {
   const { handleSubmit, register } = useForm()
   const [, setLocation] = useLocation()
   const [isLoading, setIsLoading] = useState(true)
+  const { jwt } = useContext(userContext)
 
   useEffect(() => setIsLoading(false), [])
 
   const onSubmit = data => {
     setIsLoading(true)
-    data.userId = 'roku_js'
+
+    data.start = Date()
 
     if (data.description === '') {
       data.description = 'No description'
     }
 
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    }
-
-    fetch('http://localhost:8080/api/goals/add', requestOptions)
+    CreateGoal({ data, token: jwt })
       .then(() => setLocation('/'))
       .catch(err => console.error(err))
   }

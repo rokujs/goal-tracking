@@ -1,7 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
+import { useLocation } from 'wouter'
+
+import loginServices from '@/services/login'
+import userContext from '@/context/userContext'
 
 import Loading from '@/components/Loading'
 import Button from '@/components/Button'
@@ -11,10 +15,22 @@ import { container, input, btn } from './styles'
 function FormLogin () {
   const { handleSubmit, register } = useForm()
   const [isLoading, setIsLoading] = useState(true)
+  const { setJwt, setUser } = useContext(userContext)
+  const [, setLocation] = useLocation()
 
   useEffect(() => setIsLoading(false), [])
 
-  const onSubmit = () => {}
+  const onSubmit = (data) => {
+    loginServices(data)
+      .then((res) => {
+        setJwt(res.token)
+        setUser(res.username)
+        window.localStorage.setItem('jwt', res.token)
+        window.localStorage.setItem('user', res.username)
+        setLocation('/')
+      })
+      .catch((err) => console.error(err))
+  }
 
   if (isLoading) {
     return <Loading />

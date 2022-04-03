@@ -14,7 +14,10 @@ function FormRegister () {
 
   useEffect(() => setIsLoading(false), [])
 
-  const onSubmit = () => {}
+  const onSubmit = (data) => {
+    console.log('submit')
+    console.log(data)
+  }
 
   if (isLoading) {
     return <Loading />
@@ -23,23 +26,23 @@ function FormRegister () {
   return (
     <div css={container}>
       <form onSubmit={handleSubmit(onSubmit)}>
-      <div css={input}>
-          <label>
-            UserName
-            <input
-              type='text'
-              placeholder='userName'
-              {...register('username')}
-              required
-            />
-          </label>
-        </div>
         <div css={input}>
           <label>
             Email
             <input
               type='text'
-              placeholder='Username'
+              placeholder='email'
+              {...register('email')}
+              required
+            />
+          </label>
+        </div>
+      <div css={input}>
+          <label>
+            UserName
+            <input
+              type='text'
+              placeholder='username'
               {...register('username')}
               required
             />

@@ -1,6 +1,6 @@
-const URL = 'http://localhost:8080/api/login'
+const URL = 'http://localhost:8080/api/user'
 
-export default async function login (data) {
+export default async function Register (data) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

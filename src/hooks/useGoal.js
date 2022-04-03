@@ -12,7 +12,7 @@ export const useGoal = () => {
   const { jwt } = useContext(userContext)
 
   useEffect(() => {
-    getGoals()
+    getGoals(jwt)
       .then(data => {
         setLoading(false)
         setError(false)

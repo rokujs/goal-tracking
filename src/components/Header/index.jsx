@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { jsx } from '@emotion/react'
 import { Link } from 'wouter'
 
@@ -20,16 +20,18 @@ function Header () {
       </Link>
       <nav css={list}>
         <ul>
-          <li css={item}>
-            <Link href='/new-goal'>
-              <a>Create goal</a>
-            </Link>
-          </li>
           {user
             ? (
-            <li css={item}>
-              <UserHeader />
-            </li>
+            <>
+              <li css={item}>
+                <Link href='/new-goal'>
+                  <a>Create goal</a>
+                </Link>
+              </li>
+              <li css={item}>
+                <UserHeader />
+              </li>
+            </>
               )
             : (
             <>

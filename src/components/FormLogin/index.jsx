@@ -32,7 +32,10 @@ function FormLogin () {
         window.localStorage.setItem('user', JSON.stringify(json))
         setLocation('/')
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err)
+        alert('Invalid username or password')
+      })
   }
 
   if (isLoading) {

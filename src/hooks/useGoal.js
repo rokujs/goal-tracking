@@ -12,23 +12,32 @@ export const useGoal = () => {
   const { jwt } = useContext(userContext)
 
   useEffect(() => {
-    getGoals(jwt)
-      .then(data => {
-        setLoading(false)
-        setError(false)
-        setGoals(data)
-      })
-      .catch(err => {
-        console.error(err)
-        setLoading(false)
-        setError(true)
-      })
+    if (jwt) {
+      getGoals(jwt)
+        .then(data => {
+          setLoading(false)
+          setError(false)
+          setGoals(data)
+        })
+        .catch(err => {
+          console.error(err)
+          setLoading(false)
+          setError(true)
+        })
+    } else {
+      setGoals([])
+      setLoading(false)
+      setError(false)
+    }
   }, [])
 
   const RemoveGoal = goalId => {
     const requestOptions = {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` }
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${jwt}`
+      }
     }
 
     fetch(`${URL}/goal/${goalId}`, requestOptions)
@@ -52,7 +61,10 @@ export const useGoal = () => {
 
     const requestOptions = {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${jwt}`
+      },
       body: JSON.stringify(dataDate)
     }
 
@@ -73,7 +85,10 @@ export const useGoal = () => {
   const Done = goalId => {
     const requestOptions = {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${jwt}`
+      },
       body: JSON.stringify({ todayDone: true })
     }
 
@@ -100,7 +115,10 @@ export const useGoal = () => {
     }
     const requestOptions = {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${jwt}`
+      },
       body: JSON.stringify(dataGoalAbandon)
     }
 

@@ -12,7 +12,6 @@ function UserHeader () {
 
   const handleClick = () => setIsHidden(!isHidden)
   const handleLogout = () => {
-    window.localStorage.removeItem('jwt')
     window.localStorage.removeItem('user')
     window.location.reload()
   }

@@ -33,10 +33,13 @@ function FormRegister () {
       email: data.email
     })
       .then(res => {
-        setJwt(res.id)
+        const json = {
+          jwt: res.token,
+          user: res.username
+        }
+        setJwt(res.token)
         setUser(res.username)
-        window.localStorage.setItem('jwt', res.token)
-        window.localStorage.setItem('user', res.username)
+        window.localStorage.setItem('user', JSON.stringify(json))
         setLocation('/')
       })
       .catch(err => console.error(err))

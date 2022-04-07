@@ -20,16 +20,19 @@ function FormLogin () {
 
   useEffect(() => setIsLoading(false), [])
 
-  const onSubmit = (data) => {
+  const onSubmit = data => {
     loginServices(data)
-      .then((res) => {
+      .then(res => {
+        const json = {
+          jwt: res.token,
+          user: res.username
+        }
         setJwt(res.token)
         setUser(res.username)
-        window.localStorage.setItem('jwt', res.token)
-        window.localStorage.setItem('user', res.username)
+        window.localStorage.setItem('user', JSON.stringify(json))
         setLocation('/')
       })
-      .catch((err) => console.error(err))
+      .catch(err => console.error(err))
   }
 
   if (isLoading) {

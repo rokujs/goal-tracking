@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { jsx } from '@emotion/react'
 import { Link } from 'wouter'
 

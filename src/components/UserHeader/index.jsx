@@ -16,12 +16,16 @@ function UserHeader () {
     window.location.reload()
   }
 
+  const handleLeaveLogout = () => {
+    document.addEventListener('click', handleClick, { once: true })
+  }
+
   return (
     <div css={container}>
       <div css={userContainer}>
         <button onClick={handleClick}>{user}</button>
       </div>
-      <div css={list({ hidden: isHidden })}>
+      <div onMouseLeave={handleLeaveLogout} css={list({ hidden: isHidden })}>
         <button className='close' onClick={handleClick}>
           close
         </button>

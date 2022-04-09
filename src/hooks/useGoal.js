@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react'
 import getGoals from '@/services/getGoals'
 import userContext from '@/context/userContext'
 
-const URL = 'http://localhost:8080/api'
+const URL = 'https://goal-tracking-backend-production.up.railway.app/api'
 
 export const useGoal = () => {
   const [goals, setGoals] = useState([])

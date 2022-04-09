@@ -8,7 +8,7 @@ export async function CreateGoal ({ data, token }) {
     body: JSON.stringify(data)
   }
 
-  const res = await fetch('http://localhost:8080/api/goals/add', requestOptions)
+  const res = await fetch('https://goal-tracking-backend-production.up.railway.app/api/goals/add', requestOptions)
 
   return res
 }

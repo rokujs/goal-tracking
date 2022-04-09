@@ -1,4 +1,4 @@
-const URL = 'http://localhost:8080/api/login'
+const URL = 'https://goal-tracking-backend-production.up.railway.app/api/login'
 
 export default async function login (data) {
   try {

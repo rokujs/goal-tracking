@@ -1,5 +1,5 @@
 export default async function GetGoals (token) {
-  const url = 'http://localhost:8080/api/goals/'
+  const url = 'https://goal-tracking-backend-production.up.railway.app/api/goals/'
   const requestOptions = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }

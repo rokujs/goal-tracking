@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import Loading from '../Loading'
 import GoalsHistory from '../GoalsHistory'
 
 import getGoalHistory from '@/services/getGoalHistory'
+import userContext from '@/context/userContext'
 
 function TableHistory ({ id }) {
   const [goalList, setGoalList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const { jwt } = useContext(userContext)
 
   useEffect(() => {
-    getGoalHistory({ id })
+    getGoalHistory({ id, token: jwt })
       .then(data => {
         setGoalList(data)
         setIsLoading(false)

@@ -3,7 +3,7 @@ import { colors } from '@/styles/theme'
 
 const sizeClose = '3rem'
 
-export const container = css`
+export const container = ({ error }) => css`
   z-index: 10;
   position: relative;
   padding: 1.2rem;
@@ -12,7 +12,7 @@ export const container = css`
   min-height: 20rem;
   max-height: 60rem;
   overflow-y: auto;
-  background-color: ${colors.white};
+  background-color: ${error ? colors.delete : colors.white};
   border-radius: 1rem;
 `
 

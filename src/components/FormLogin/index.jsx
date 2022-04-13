@@ -6,7 +6,10 @@ import { useLocation } from 'wouter'
 
 import loginServices from '@/services/login'
 import userContext from '@/context/userContext'
+import { useModal } from '@/hooks/useModal'
 
+import Modal from '@/components/Modal'
+import ModalHandeError from '@/components/ModalHandeError'
 import Loading from '@/components/Loading'
 import Button from '@/components/Button'
 
@@ -15,8 +18,10 @@ import { container, input, btn } from './styles'
 function FormLogin () {
   const { handleSubmit, register } = useForm()
   const [isLoading, setIsLoading] = useState(true)
+  const [messageError, setMessageError] = useState('')
   const { setJwt, setUser } = useContext(userContext)
   const [, setLocation] = useLocation()
+  const { isShowing: modal, onOpenModal, onCloseModal } = useModal()
 
   useEffect(() => setIsLoading(false), [])
 
@@ -34,7 +39,8 @@ function FormLogin () {
       })
       .catch(err => {
         console.error(err)
-        alert('Invalid username or password')
+        setMessageError(err.message)
+        onOpenModal()
       })
   }
 
@@ -71,6 +77,11 @@ function FormLogin () {
           <Button outline>LOGIN</Button>
         </div>
       </form>
+      {modal && (
+        <Modal onClose={onCloseModal} error>
+          <ModalHandeError message={messageError} onClose={onCloseModal} />
+        </Modal>
+      )}
     </div>
   )
 }

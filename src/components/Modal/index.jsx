@@ -4,11 +4,11 @@ import { createPortal } from 'react-dom'
 
 import { container, modal, bg, btn } from './styles'
 
-function Modal ({ children, onClose }) {
+function Modal ({ children, onClose, error }) {
   return (
     <article css={modal}>
       <div css={bg} onClick={onClose}></div>
-      <div css={container}>
+      <div css={container({ error })}>
         <button css={btn} onClick={onClose}>
           <div></div>
         </button>
@@ -18,9 +18,9 @@ function Modal ({ children, onClose }) {
   )
 }
 
-function ModalPortal ({ children, onClose }) {
+function ModalPortal ({ children, onClose, error = false }) {
   return createPortal(
-    <Modal onClose={onClose}>{children}</Modal>,
+    <Modal onClose={onClose} error={error}>{children}</Modal>,
     document.getElementById('modal-root')
   )
 }

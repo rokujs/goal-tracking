@@ -6,9 +6,12 @@ import { useLocation } from 'wouter'
 
 import userContext from '@/context/userContext'
 import { CreateGoal } from '@/services/createGoal'
+import { useModal } from '@/hooks/useModal'
 
 import Button from '@/components/Button'
-import Loading from '../Loading'
+import Modal from '@/components/Modal'
+import ModalHandeError from '@/components/ModalHandeError'
+import Loading from '@/components/Loading'
 
 import { form, input, date, textarea } from './styles'
 
@@ -16,7 +19,9 @@ function FormCreateGoal () {
   const { handleSubmit, register } = useForm()
   const [, setLocation] = useLocation()
   const [isLoading, setIsLoading] = useState(true)
+  const { messageError, setMessageError } = useModal('')
   const { jwt } = useContext(userContext)
+  const { isShowing: modal, onOpenModal, onCloseModal } = useModal()
 
   useEffect(() => setIsLoading(false), [])
 
@@ -31,7 +36,11 @@ function FormCreateGoal () {
 
     CreateGoal({ data, token: jwt })
       .then(() => setLocation('/'))
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err)
+        onOpenModal()
+        setMessageError(err.message)
+      })
   }
 
   if (isLoading) {
@@ -62,6 +71,12 @@ function FormCreateGoal () {
         <input type='date' {...register('timeEnd')} required />
       </div>
       <Button>Save</Button>
+
+      {modal && (
+        <Modal onClose={onCloseModal} error>
+          <ModalHandeError message={messageError} onClose={onCloseModal} />
+        </Modal>
+      )}
     </form>
   )
 }

@@ -6,7 +6,10 @@ import { useLocation } from 'wouter'
 
 import Register from '@/services/register'
 import userContext from '@/context/userContext'
+import { useModal } from '@/hooks/useModal'
 
+import Modal from '@/components/Modal'
+import ModalHandeError from '@/components/ModalHandeError'
 import Loading from '@/components/Loading'
 import Button from '@/components/Button'
 
@@ -15,16 +18,18 @@ import { container, input, btn } from './styles'
 function FormRegister () {
   const { handleSubmit, register } = useForm()
   const [isLoading, setIsLoading] = useState(true)
+  const [messageError, setMessageError] = useState('')
   const { setJwt, setUser } = useContext(userContext)
   const [, setLocation] = useLocation()
+  const { isShowing: modal, onOpenModal, onCloseModal } = useModal()
 
   useEffect(() => setIsLoading(false), [])
 
   const onSubmit = data => {
-    console.log('submit')
-    console.log(data)
     if (data.password !== data.confirmPassword) {
-      return alert('Las contraseñas deben coincidir')
+      onOpenModal()
+      setMessageError('Password and confirm password must be the same')
+      return
     }
 
     Register({
@@ -42,7 +47,11 @@ function FormRegister () {
         window.localStorage.setItem('user', JSON.stringify(json))
         setLocation('/')
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err)
+        setMessageError(err.message)
+        onOpenModal()
+      })
   }
 
   if (isLoading) {
@@ -100,6 +109,11 @@ function FormRegister () {
           <Button outline>CREATE ACCOUNT</Button>
         </div>
       </form>
+      {modal && (
+        <Modal onClose={onCloseModal} error>
+          <ModalHandeError message={messageError} onClose={onCloseModal} />
+        </Modal>
+      )}
     </div>
   )
 }

@@ -10,10 +10,10 @@ export default async function login (data) {
     const response = await fetch(`${URL}`, requestOptions)
     const dataResponse = await response.json()
 
-    if (response.status !== 200) throw new Error(dataResponse.error)
+    if (response.status !== 200) throw new Error(dataResponse.message)
 
     return dataResponse
   } catch (error) {
-    console.error(error)
+    throw new Error(error.message)
   }
 }

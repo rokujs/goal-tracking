@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { useLocation } from 'wouter'
 
-import Loading from '../Loading'
-import GoalsHistory from '../GoalsHistory'
+import Loading from '@/components/Loading'
+import GoalsHistory from '@/components/GoalsHistory'
+import ModalHandeError from '@/components/ModalHandeError'
 
 import getGoalHistory from '@/services/getGoalHistory'
 import userContext from '@/context/userContext'
@@ -9,7 +11,9 @@ import userContext from '@/context/userContext'
 function TableHistory ({ id }) {
   const [goalList, setGoalList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [messageError, setMessageError] = useState('')
   const { jwt } = useContext(userContext)
+  const [, setLocation] = useLocation()
 
   useEffect(() => {
     getGoalHistory({ id, token: jwt })
@@ -17,11 +21,24 @@ function TableHistory ({ id }) {
         setGoalList(data)
         setIsLoading(false)
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err)
+        setMessageError(err.message)
+        setIsLoading(false)
+      })
   }, [])
 
   if (isLoading) {
     return <Loading />
+  }
+
+  if (messageError !== '') {
+    return (
+      <ModalHandeError
+        message={messageError}
+        onClose={() => setLocation('/')}
+      />
+    )
   }
 
   return (

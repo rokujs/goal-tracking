@@ -33,6 +33,7 @@ function Goal ({
   resume
 }) {
   const { isShowing: modal, onOpenModal, onCloseModal } = useModal()
+
   return (
     <div css={container}>
       <h3 css={styleTitle}>{title}</h3>

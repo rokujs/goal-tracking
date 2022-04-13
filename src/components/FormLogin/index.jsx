@@ -56,7 +56,7 @@ function FormLogin () {
             Email
             <input
               type='text'
-              placeholder='Username'
+              placeholder='Username or Email'
               {...register('username')}
               required
             />
